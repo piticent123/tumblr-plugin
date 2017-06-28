@@ -1,0 +1,136 @@
+<idea-plugin url="https://github.com/JetBrains/intellij-plugins/tree/master/AngularJS">
+  <name>AngularJS</name>
+  <description>Support for AngularJS and Angular</description>
+  <vendor>johnlindquist, JetBrains</vendor>
+
+  <depends>JavaScript</depends>
+  <depends>com.intellij.modules.platform</depends>
+  <depends optional="true" config-file="css-support.xml">com.intellij.css</depends>
+  <depends optional="true" config-file="ui-router-diagram.xml">com.intellij.diagram</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <codeInsight.template.postfixTemplateProvider language="AngularJS"
+                                                  implementationClass="com.intellij.codeInsight.template.postfix.templates.EmptyPostfixTemplateProvider"/>
+
+    <lang.surroundDescriptor language="AngularJS" implementationClass="org.angularjs.refactoring.surround.AngularJSExpressionSurroundDescriptor"/>
+
+    <xml.attributeDescriptorsProvider implementation="org.angularjs.codeInsight.attributes.AngularJSAttributeDescriptorsProvider" order="first"/>
+    <xml.tagNameProvider implementation="org.angularjs.codeInsight.tags.AngularJSTagDescriptorsProvider" />
+    <xml.elementDescriptorProvider implementation="org.angularjs.codeInsight.tags.AngularJSTagDescriptorsProvider" order="last"/>
+    <xml.xmlExtension implementation="org.angularjs.codeInsight.AngularJSHtmlExtension" order="first" id="AngularJS"/>
+
+    <defaultLiveTemplatesProvider implementation="org.angularjs.AngularJSTemplatesProvider"/>
+
+    <typedHandler implementation="org.angularjs.editor.AngularBracesInterpolationTypedHandler"/>
+    <lang.braceMatcher language="AngularJS" implementationClass="com.intellij.lang.javascript.highlighting.JSBraceMatcher"/>
+
+    <projectService serviceInterface="org.angularjs.settings.AngularSettings"
+                    serviceImplementation="org.angularjs.settings.AngularSettings"/>
+
+    <stubIndex implementation="org.angularjs.index.AngularDirectivesIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularDirectivesDocIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularControllerIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularDecoratorsIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularModuleIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularFilterIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularSymbolIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularUiRouterStatesIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularUiRouterGenericStatesIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularGenericModulesIndex"/>
+    <fileBasedIndex implementation="org.angularjs.index.AngularTemplateCacheIndex"/>
+    <stubIndex implementation="org.angularjs.index.AngularInjectionDelimiterIndex"/>
+    <fileBasedIndex implementation="org.angularjs.index.AngularUiRouterViewsIndex"/>
+    <fileBasedIndex implementation="org.angularjs.index.AngularAppIndex"/>
+
+    <gotoSymbolContributor implementation="org.angularjs.navigation.AngularGotoSymbolContributor"/>
+    <lang.documentationProvider language="HTML" implementationClass="org.angularjs.AngularJSDocumentationProvider" />
+    <lang.documentationProvider language="JavaScript" implementationClass="org.angularjs.AngularJSDocumentationProvider" order="first"/>
+    <lang.parserDefinition language="AngularJS" implementationClass="org.angularjs.lang.parser.AngularJSParserDefinition"/>
+    <stubElementTypeHolder class="org.angularjs.lang.parser.AngularJSElementTypes"/>
+    <lang.syntaxHighlighterFactory language="AngularJS" implementationClass="org.angularjs.lang.AngularJSSyntaxHighlighterFactory"/>
+    <lang.parserDefinition language="Angular2HTML" implementationClass="org.angularjs.html.Angular2HTMLParserDefinition"/>
+    <lang.syntaxHighlighterFactory language="Angular2HTML" implementationClass="org.angularjs.html.Angular2HTMLHighlighterFactory"/>
+    <psi.referenceContributor implementation="org.angularjs.codeInsight.refs.AngularJSReferencesContributor"/>
+    <highlightErrorFilter implementation="org.angularjs.lang.AngularJSErrorFilter" />
+    <annotator language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSMessageFormatAnnotator"/>
+    <annotator language="AngularJS" implementationClass="com.intellij.lang.javascript.validation.JSAnnotator"/>
+    <fileTypeFactory implementation="org.angularjs.AngularJSFileFactory"/>
+
+    <multiHostInjector implementation="org.angularjs.editor.AngularJSInjector" id="angular"/>
+    <multiHostInjector implementation="org.angularjs.editor.Angular2Injector" order="first" id="angular2"/>
+    <completion.contributor language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSCompletionContributor"
+                            id="AngularJSCompletionContributor"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor"/>
+
+    <completion.contributor language="JavaScript" implementationClass="org.angularjs.codeInsight.AngularJSDICompletionContributor"
+                            id="AngularJSDICompletionContributor"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor"/>
+
+    <completion.contributor language="JavaScript" implementationClass="org.angularjs.codeInsight.AngularJavaScriptCompletionContributor"
+                            id="AngularJavaScriptCompletionContributor"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor"/>
+
+    <completion.contributor id="Angular2ServiceCompletionContributor" language="AngularJS"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor"
+                            implementationClass="org.angularjs.codeInsight.Angular2ServiceCompletionContributor"/>
+
+    <completion.contributor id="Angular2ServiceCompletionContributorNgHtml" language="Angular2HTML"
+                            order="before JSPatternBasedCompletionContributor, before JSCompletionContributor"
+                            implementationClass="org.angularjs.codeInsight.Angular2ServiceCompletionContributor"/>
+
+    <completion.contributor language="HTML" implementationClass="org.angularjs.codeInsight.AngularJSXmlCompletionContributor"
+                            id="AngularJSXmlCompletionContributor" order="before xmlNonFirst"/>
+
+    <completion.contributor language="HTML" implementationClass="org.angularjs.codeInsight.Angular2ServiceCompletionContributor"
+                            id="Angular2ServiceCompletionContributorHtml" order="before AngularJSXmlCompletionContributor"/>
+
+    <lookup.charFilter implementation="org.angularjs.editor.Angular2LookupCharFilter" order="before xml"/>
+
+    <renamePsiElementProcessor implementation="org.angularjs.refactoring.AngularJSDirectiveRenameProcessor"/>
+    <targetElementEvaluator language="JavaScript" implementationClass="org.angularjs.AngularJSTargetElementEvaluator"/>
+    <elementDescriptionProvider order="first"
+                                implementation="org.angularjs.refactoring.AngularJSDirectiveRenameProcessor$AngularJSDirectiveElementDescriptor"/>
+
+    <findUsagesHandlerFactory implementation="org.angularjs.findUsages.AngularJSFindUsagesHandlerFactory" order="before JavaScript"/>
+    <referencesSearch implementation="org.angularjs.findUsages.AngularJSReferenceSearcher"/>
+
+    <directoryProjectGenerator implementation="org.angularjs.AngularJSProjectGenerator"/>
+    <directoryProjectGenerator implementation="org.angularjs.cli.AngularCLIProjectGenerator"/>
+    <projectTemplatesFactory implementation="org.angularjs.AngularJSTemplateFactory"/>
+    <directoryProjectConfigurator implementation="org.angularjs.cli.AngularJSProjectConfigurator"
+                                  order="after PlatformProjectConfigurator"/>
+    <framework.detector implementation="org.angularjs.cli.AngularJSFrameworkDetector"/>
+
+    <localInspection implementationClass="org.angularjs.inspections.EmptyEventHandlerInspection" displayName="Empty Event Handler"
+                     groupName="AngularJS" enabledByDefault="true" level="WARNING" language="HTML"/>
+    <diagram.Provider implementation="org.angularjs.codeInsight.router.AngularUiRouterDiagramProvider"/>
+    <javascript.module.provider implementation="org.angularjs.codeInsight.attributes.AngularModulesProvider"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="JavaScript">
+    <intentionAndInspectionFilter language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSInspectionFilter"/>
+    <frameworkIndexingHandler implementation="org.angularjs.index.AngularJSIndexingHandler"/>
+    <frameworkIndexingHandler implementation="org.angularjs.index.AngularJS2IndexingHandler"/>
+    <dialectSpecificHandlersFactory language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSSpecificHandlersFactory"/>
+    <inheritedLanguagesConfigurableProvider language="AngularJS"
+                                            implementationClass="org.angularjs.codeInsight.AngularJSLanguageConfigurableProvider"/>
+    <elementScopeProvider language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSResolveScopeProvider"/>
+    <LanguageServiceProvider implementation="org.angularjs.service.Angular2LanguageServiceProvider"/>
+    <LanguageServiceFilter implementation="org.angularjs.service.Angular2LanguageServiceFilter"/>
+    <analysisHandlersFactory language="AngularJS" implementationClass="org.angularjs.codeInsight.AngularJSAnalysisHandlersFactory"/>
+  </extensions>
+
+  <actions>
+    <action class="org.angularjs.cli.actions.AngularCliGenerateAction" id="angularCliGenerate"
+            text="Angular CLI..." description="Generates new code from AngularCLI blueprints"
+            icon="/icons/angular2.png">
+      <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
+    </action>
+  </actions>
+
+  <project-components>
+    <component>
+      <implementation-class>org.angularjs.service.Angular2HighlightingPassFactory</implementation-class>
+    </component>
+  </project-components>
+</idea-plugin>
